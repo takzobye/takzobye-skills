@@ -1,0 +1,3 @@
+interface:
+  display_name: "ElysiaJS to NestJS v12"
+  short_description: "Rebuild ElysiaJS features with idiomatic NestJS v12"
