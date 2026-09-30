@@ -16,6 +16,16 @@ Prefer latest active LTS satisfying the installed toolchain. Check CI and contai
 
 New projects default to ESM/Vitest, support CommonJS/Jest, enable TypeScript strict mode, and use oxlint/Prettier. Express is the default adapter. Preserve deliberate alternatives.
 
+## AWS Lambda with CommonJS
+
+AWS Lambda disables `require(esm)` by default on its Node.js 20, 22, and 24 runtimes, even when the upstream Node version meets Nest's runtime minimum. For a CommonJS Nest v12 deployment on these runtimes, append `--experimental-require-module` to the function's `NODE_OPTIONS`, preserving existing flags. With no existing flags, the value is:
+
+```text
+NODE_OPTIONS=--experimental-require-module
+```
+
+Check the actual Lambda runtime, handler module format, and emitted deployment artifact; local Node success does not verify Lambda's module loading. Smoke-test initialization in the target runtime before rollout. An application using native ESM does not need this flag solely to import Nest. Recheck Lambda's current support and experimental-feature limitations when changing runtimes. [Nest migration guide](https://docs.nestjs.com/migration-guide), [AWS Lambda Node.js runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html).
+
 ## Upgrade scope
 
 [Migration guide](https://docs.nestjs.com/migration-guide): core packages ship ESM; CommonJS applications consume them through `require(esm)`. Converting application code to ESM is optional. Existing lint/test tooling can stay.

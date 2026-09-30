@@ -1,6 +1,6 @@
 ---
 name: nestjs-best-practices
-description: Build, change, or review NestJS v12 applications using best practices grounded in official documentation for modules, dependency injection, HTTP contracts, validation, configuration, and testing. Use for Nest-specific implementation decisions and v11-to-v12 upgrades.
+description: Build, change, review, or diagnose NestJS v12 applications using official documentation for architecture, dependency injection, request handling, security, persistence, performance, background work, and testing. Use for Nest-specific implementation decisions and v11-to-v12 upgrades.
 ---
 
 # NestJS Best Practices
@@ -20,11 +20,16 @@ When the user asks for latest guidance, dependencies change, or an API is unavai
 ## Read the relevant reference
 
 - Scaffolding, runtime compatibility, module format, or upgrading: [runtime-and-upgrades.md](references/runtime-and-upgrades.md).
-- Feature modules, providers, dependency boundaries, or scopes: [modules-and-di.md](references/modules-and-di.md).
+- Feature modules, custom/async providers, dynamic modules, circular dependencies, or scopes: [modules-and-di.md](references/modules-and-di.md).
 - HTTP routes, input validation, response shaping, or errors: [http-contracts.md](references/http-contracts.md).
+- Middleware, guard/pipe/interceptor ordering, custom filters, or request context: [request-pipeline.md](references/request-pipeline.md).
+- Authentication, authorization, CORS, security headers, CSRF, or rate limiting: [security.md](references/security.md).
 - Environment configuration or Swagger generation: [config-and-openapi.md](references/config-and-openapi.md).
+- Database injection, transactions/migrations, caching, or performance: [data-and-performance.md](references/data-and-performance.md).
+- In-process events, durable queues/workers, or scheduled jobs: [background-work.md](references/background-work.md).
 - Tests, shutdown, logs, or optional observability: [testing-and-operations.md](references/testing-and-operations.md).
-- GraphQL, NATS, health indicators, or other integrations: [integrations.md](references/integrations.md).
+- GraphQL, microservices, WebSockets, health indicators, or other integrations: [integrations.md](references/integrations.md).
+- Code review, unresolved DI, or runtime/test failures: [review-and-diagnostics.md](references/review-and-diagnostics.md).
 
 Load only references relevant to the request. Examples show focused wiring fragments, not complete applications; supply feature imports, providers, schemas, and dependencies appropriate to the repository.
 

@@ -54,7 +54,11 @@ findAll() {
 
 For a top-level array, provide the item schema: the interceptor handles each element. For an envelope, describe the envelope with its nested array. Global manual registration needs `new StandardSchemaSerializerInterceptor(app.get(Reflector))`; `APP_INTERCEPTOR` allows DI. Routes without schemas remain unaffected unless constructor defaults provide one. Check sensitive-field exclusion and invalid service output. [Serialization](https://docs.nestjs.com/techniques/serialization).
 
+The schema serializer passes top-level `null`, `undefined`, primitive values, and `StreamableFile` responses through unchanged even when a schema is configured. It therefore does not enforce every possible response contract. If a route must reject these outputs, check that invariant in the service/handler or a dedicated interceptor, or use an object envelope that the schema can validate. An invalid object response causes a server error (HTTP 500 through the default exception filter); handle missing resources explicitly when the contract requires 404. Cover these boundaries in response tests. [Serialization behavior and errors](https://docs.nestjs.com/techniques/serialization).
+
 ## Routing and errors
+
+For a global path prefix or API versioning change, configure bootstrap and route/controller metadata together. Select URI/header/media-type/custom versioning according to clients; when versioning is enabled, a route without a version or global default can return 404. Use `VERSION_NEUTRAL` for intentional unversioned routes. Check the existing and new route URLs, prefixes, default version, and OpenAPI output. [Versioning](https://docs.nestjs.com/techniques/versioning), [Global prefix](https://docs.nestjs.com/faq/global-prefix).
 
 Return values through Nest's response pipeline. Use `@Res({ passthrough: true })` for headers/cookies while retaining it; full `@Res()` handling requires the handler to send responses. Default status is 201 for POST and 200 otherwise; set explicit codes when required. [Controllers](https://docs.nestjs.com/controllers).
 
@@ -69,3 +73,5 @@ throw new BadRequestException('Invalid note title', {
 ```
 
 `cause` is internal; `errorCode` is serialized. Preserve codes in custom error filters. [Exception filters](https://docs.nestjs.com/exception-filters). For WebSocket/microservice validation, choose transport-appropriate exceptions through `exceptionFactory`. [Validation](https://docs.nestjs.com/techniques/validation).
+
+For custom middleware/interceptors/filters or order-dependent failures, read [request-pipeline.md](request-pipeline.md).
