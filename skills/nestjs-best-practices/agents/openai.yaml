@@ -1,0 +1,4 @@
+interface:
+  display_name: "NestJS Best Practices"
+  short_description: "Apply NestJS v12 practices grounded in official docs"
+  default_prompt: "Use $nestjs-best-practices to implement this NestJS v12 feature using current official documentation."
